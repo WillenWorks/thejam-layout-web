@@ -1,0 +1,226 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =========================
+   TOKENS BASE
+   ========================= */
+:root {
+  /* surfaces */
+  --bg-0: #070b12;
+  --bg-1: rgba(255, 255, 255, 0.03);
+  --panel: rgba(255, 255, 255, 0.06);
+  --panel-2: rgba(255, 255, 255, 0.04);
+  --panel-border: rgba(255, 255, 255, 0.10);
+  --text: rgba(255, 255, 255, 0.94);
+  --text-muted: rgba(255, 255, 255, 0.62);
+
+  /* accents (defaults = ygo) */
+  --a1: #7c3aed; /* primary */
+  --a2: #22d3ee; /* secondary */
+  --a3: #141b2f; /* deep */
+  --glow: rgba(124, 58, 237, 0.42);
+
+  /* border style */
+  --edge: rgba(255,255,255,0.14);
+  --edge-2: rgba(255,255,255,0.06);
+
+  /* corner cut size */
+  --cut: 14px;
+}
+
+/* =========================
+   COLOR MODES
+   ========================= */
+html.mode-dark {
+  --bg-0: #070b12;
+  --bg-1: rgba(255, 255, 255, 0.03);
+  --panel: rgba(255, 255, 255, 0.06);
+  --panel-2: rgba(255, 255, 255, 0.04);
+  --panel-border: rgba(255, 255, 255, 0.10);
+  --text: rgba(255, 255, 255, 0.94);
+  --text-muted: rgba(255, 255, 255, 0.62);
+  --edge: rgba(255,255,255,0.14);
+  --edge-2: rgba(255,255,255,0.06);
+}
+
+html.mode-light {
+  --bg-0: #f6f8fb;
+  --bg-1: rgba(10, 16, 32, 0.04);
+  --panel: rgba(255, 255, 255, 0.72);
+  --panel-2: rgba(255, 255, 255, 0.58);
+  --panel-border: rgba(10, 16, 32, 0.12);
+  --text: rgba(8, 12, 20, 0.92);
+  --text-muted: rgba(8, 12, 20, 0.62);
+  --edge: rgba(8, 12, 20, 0.14);
+  --edge-2: rgba(8, 12, 20, 0.06);
+}
+
+/* =========================
+   THEMES (TCG)
+   Referências de cor (inspiradas):
+   - Digimon: #00b3ea, #e30000, #171f55 (extraído do CSS do site oficial)
+   - Gundam: #242424, #a7b5c9, #3e707c (extraído do CSS do site oficial)
+   ========================= */
+html.theme-ygo {
+  --a1: #7c3aed;
+  --a2: #22d3ee;
+  --a3: #141b2f;
+  --glow: rgba(124, 58, 237, 0.58);
+}
+
+html.theme-magic {
+  --a1: #f59e0b; /* gold */
+  --a2: #60a5fa; /* blue highlight */
+  --a3: #2b1a10;
+  --glow: rgba(245, 158, 11, 0.32);
+}
+
+html.theme-digimon {
+  --a1: #00b3ea; /* cyan */
+  --a2: #e30000; /* red */
+  --a3: #171f55; /* navy */
+  --glow: rgba(0, 179, 234, 0.30);
+}
+
+html.theme-gundam {
+  --a1: #a7b5c9; /* steel */
+  --a2: #3e707c; /* teal */
+  --a3: #242424; /* graphite */
+  --glow: rgba(62, 112, 124, 0.22);
+}
+
+* { -webkit-tap-highlight-color: transparent; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg-0);
+  color: var(--text);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+}
+
+/* =========================
+   UI PRIMITIVES
+   ========================= */
+.ui-panel {
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  backdrop-filter: blur(12px);
+}
+
+.ui-panel-2 {
+  background: var(--panel-2);
+  border: 1px solid var(--panel-border);
+  backdrop-filter: blur(12px);
+}
+
+.ui-glow {
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.08),
+    0 0 34px var(--glow),
+    0 0 72px color-mix(in srgb, var(--a2) 22%, transparent);
+}
+
+/* Chamfered corners (Master Duel-ish blocks) */
+.ui-chamfer {
+  clip-path: polygon(
+    0 var(--cut),
+    var(--cut) 0,
+    calc(100% - var(--cut)) 0,
+    100% var(--cut),
+    100% calc(100% - var(--cut)),
+    calc(100% - var(--cut)) 100%,
+    var(--cut) 100%,
+    0 calc(100% - var(--cut))
+  );
+}
+
+.ui-edge {
+  position: relative;
+}
+.ui-edge::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border: 1px solid var(--edge);
+  opacity: 0.75;
+  clip-path: inherit;
+}
+.ui-edge::after {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  pointer-events: none;
+  border: 1px solid var(--edge-2);
+  opacity: 0.75;
+  clip-path: inherit;
+}
+
+/* =========================
+   ANIMATIONS / EFFECTS
+   ========================= */
+@keyframes floatUp {
+  from { transform: translate3d(0, 26px, 0); opacity: 0; }
+  12% { opacity: 1; }
+  to { transform: translate3d(0, -130px, 0); opacity: 0; }
+}
+
+@keyframes drift {
+  from { transform: translate3d(0,0,0); }
+  50% { transform: translate3d(14px,-8px,0); }
+  to { transform: translate3d(0,0,0); }
+}
+
+@keyframes scan {
+  from { transform: translate3d(-20%,0,0); opacity: 0.0; }
+  15% { opacity: 0.6; }
+  50% { opacity: 0.12; }
+  to { transform: translate3d(120%,0,0); opacity: 0; }
+}
+
+@keyframes spark {
+  0% { transform: translate3d(0, 20px, 0) scale(0.9); opacity: 0; }
+  10% { opacity: 0.85; }
+  100% { transform: translate3d(60px, -180px, 0) scale(1.15); opacity: 0; }
+}
+
+
+/* =========================
+   BUTTONS
+   ========================= */
+.ui-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 14px;
+  border-radius: 14px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.05);
+  transition: background 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+.ui-btn:hover { background: rgba(255,255,255,0.09); }
+.ui-btn:active { transform: translateY(1px); }
+
+.ui-btn-ghost {
+  background: rgba(255,255,255,0.04);
+}
+.ui-btn-ghost:hover {
+  background: rgba(255,255,255,0.08);
+}
+
+.ui-btn-primary {
+  background: color-mix(in srgb, var(--a1) 72%, rgba(255,255,255,0.10));
+  border-color: color-mix(in srgb, var(--a1) 42%, rgba(255,255,255,0.10));
+  box-shadow: 0 0 22px color-mix(in srgb, var(--a1) 32%, transparent);
+}
+.ui-btn-primary:hover {
+  background: color-mix(in srgb, var(--a1) 84%, rgba(255,255,255,0.10));
+}
