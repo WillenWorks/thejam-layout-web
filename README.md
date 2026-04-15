@@ -1,70 +1,75 @@
-# The Jam — Protótipo UI/UX (Nuxt)
+# Nuxt Minimal Starter
 
-Protótipo **mobile-first** (desktop também) com direção visual inspirada *de forma genérica* em UI de jogos de TCG (vibe Master Duel), mas **sem copy/paste**.
+Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
-Nesta fase do MVP, o site fica **travado em YGO** (sem alternância de tema e sem modo claro).
+## Setup
 
-## Rodando local
-
-[1mNão[0m enviar `node_modules` no zip.
+Make sure to install dependencies:
 
 ```bash
+# npm
+npm install
+
+# pnpm
 pnpm install
-pnpm dev
-# abre http://localhost:3000
+
+# yarn
+yarn install
+
+# bun
+bun install
 ```
 
-## Rotas (protótipo)
+## Development Server
 
-**Público**
-- `/` home
-- `/login` login mock (escolhe perfil)
-- `/register` cadastro mock
+Start the development server on `http://localhost:3000`:
 
-**Autenticado (usuário)**
-- `/dashboard`
-- `/quotes`
-- `/orders`
-- `/orders/:id`
-- `/collection`
-- `/settings`
+```bash
+# npm
+npm run dev
 
-**Admin (somente admin/superadmin)**
-- `/admin/inbox` (triagem / finalizar cotação)
-- `/admin/imports` (import batches)
+# pnpm
+pnpm dev
 
-## Mock API
+# yarn
+yarn dev
 
-### Quotes
-- `GET /api/quotes`
-- `POST /api/quotes` body: `{ tcg, listText }`
-- `POST /api/quotes/:id/accept` (no demo, aceitar já gera um pedido)
-- `POST /api/quotes/:id/reject`
+# bun
+bun run dev
+```
 
-### Orders
-- `GET /api/orders`
-- `GET /api/orders/:id`
-- `POST /api/orders/:id/advance-status`
-- `POST /api/orders/:id/tracking` body: `{ label }`
+## Production
 
-### Admin
-- `GET /api/admin/inbox`
-- `POST /api/admin/quotes/:id/mark-quoted`
-- `GET /api/admin/imports`
-- `POST /api/admin/imports/:id/advance-status`
+Build the application for production:
 
-**Implementação:** `server/utils/mockDb.ts` (seed + store em memória do servidor).
+```bash
+# npm
+npm run build
 
-## Ajustes visuais desta versão
+# pnpm
+pnpm build
 
-- **Mais neon** (glow reforçado + overlay técnico no background)
-- **Desktop menos claustrofóbico**: container `max-w-7xl`, paddings e gaps maiores
-- **Tema travado em YGO** (sem alternância por enquanto)
-- **Loading com moeda girando** (chamado em ações principais, não a cada troca de rota)
-- **Assets YGO-safe** em `public/ygo/*` (arte original)
+# yarn
+yarn build
 
-## Próximos passos do MVP (conforme fluxo)
+# bun
+bun run build
+```
 
-- Home + páginas institucionais: Quem Somos / FAQ / Como Funciona / Sobre
-- Usuário: Procurar Carta (YGO), Favoritos/Pasta, Cotações com aceite por item, Rastreio, Financeiro
-- Importador: Cotações por usuário + cálculo por item, Compras, Importação por season, Não recebidos, Financeiro, Mensageria
+Locally preview production build:
+
+```bash
+# npm
+npm run preview
+
+# pnpm
+pnpm preview
+
+# yarn
+yarn preview
+
+# bun
+bun run preview
+```
+
+Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
